@@ -3,21 +3,21 @@ package uk.ac.cam.cl.mlrd.testing;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //TODO: Replace with your package.
-import uk.ac.cam.cl.emm68.exercises.Exercise6;
-import uk.ac.cam.cl.mlrd.exercises.sentiment_detection.DataPreparation6;
-import uk.ac.cam.cl.mlrd.exercises.sentiment_detection.IExercise6;
-import uk.ac.cam.cl.mlrd.exercises.sentiment_detection.NuancedSentiment;
-import uk.ac.cam.cl.mlrd.exercises.sentiment_detection.Sentiment;
+import uk.ac.cam.cl.ej349.exercises.Exercise5;
+import uk.ac.cam.cl.ej349.exercises.Exercise6;
+import uk.ac.cam.cl.mlrd.exercises.sentiment_detection.*;
 import uk.ac.cam.cl.mlrd.utils.DataSplit3Way;
 
 public class Exercise6Tester {
 
 	static final Path dataDirectory = Paths.get("data/nuanced_sentiment_dataset");
+	static final int seed = 0;
 
 	public static void main(String[] args) throws IOException {
 
@@ -35,15 +35,23 @@ public class Exercise6Tester {
 		System.out.println(predictions);
 		System.out.println();
 
+		// 10-fold stratified cross validation on the multiclass naive Bayes classifier
+//		List<Map<Path, NuancedSentiment>> folds = ((Exercise6) implementation).nuancedSplitCVStratifiedRandom(dataSet, seed);
+//		double[] scores = ((Exercise6) implementation).nuancedCrossValidate(folds);
+//		IExercise5 statistics = (IExercise5) new Exercise5();
+//		System.out.println("CV score for nuanced NB classifier with stratified random folds: ");
+//		System.out.println("Average:" + statistics.cvAccuracy(scores));
+//		System.out.println("Variance:" + statistics.cvVariance(scores));
+
 		double accuracy = implementation.nuancedAccuracy(split.validationSet, predictions);
 		System.out.println("Multiclass prediction accuracy:");
 		System.out.println(accuracy);
 		System.out.println();
 
-		
+
 		Path classPredictionsFile = Paths.get("data/class_predictions.csv");
 		List<Map<Integer, Sentiment>> classPredictions = DataPreparation6.loadClassPredictions(classPredictionsFile);
-		
+
 		Map<Integer, Map<Sentiment, Integer>> agreementTable = implementation.agreementTable(classPredictions);
 		System.out.println("Agreement table:");
 		System.out.println(agreementTable);
@@ -65,9 +73,11 @@ public class Exercise6Tester {
 		Map<Integer, Map<Sentiment, Integer>> table34 = new HashMap<Integer, Map<Sentiment, Integer>>();
 		table34.put(3, agreementTable.get(3));
 		table34.put(4, agreementTable.get(4));
+		System.out.println(table34);
 		double kappa34 = implementation.kappa(table34);
 		System.out.println("Kappa value for reviews 3 and 4:");
 		System.out.println(kappa34);
 		System.out.println();
+
 	}
 }

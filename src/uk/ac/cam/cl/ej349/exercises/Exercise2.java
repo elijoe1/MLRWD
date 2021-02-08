@@ -123,7 +123,7 @@ public class Exercise2 implements IExercise2 {
             try {
                 List<String> tokens = Tokenizer.tokenize(review);
                 double posProb = Math.log(classProbabilities.get(Sentiment.POSITIVE));
-                double negProb = Math.log(classProbabilities.get(Sentiment.POSITIVE));
+                double negProb = Math.log(classProbabilities.get(Sentiment.NEGATIVE));
                 for (String token : tokens) {
                     if (tokenLogProbs.containsKey(token)) {
                         posProb += tokenLogProbs.get(token).get(Sentiment.POSITIVE);
