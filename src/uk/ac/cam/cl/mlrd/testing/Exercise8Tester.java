@@ -5,21 +5,18 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 //TODO: Replace with your package.
-import uk.ac.cam.cl.emm68.exercises.Exercise7;
-import uk.ac.cam.cl.emm68.exercises.Exercise8;
+import uk.ac.cam.cl.ej349.exercises.Exercise7;
+import uk.ac.cam.cl.ej349.exercises.Exercise8;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.DiceRoll;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.DiceType;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.HMMDataStore;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.HiddenMarkovModel;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.IExercise7;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.IExercise8;
+import uk.ac.cam.cl.mlrd.utils.crossValidator;
 
 public class Exercise8Tester {
 
@@ -45,6 +42,19 @@ public class Exercise8Tester {
 		List<Path> trainingSet = sequenceFiles.subList(testSize * 2, sequenceFiles.size());
 		// But:
 		// TODO: Replace with cross-validation for the tick.
+		List<List<Path>> foldsList = crossValidator.splitCVRandom(sequenceFiles, 10, 0);
+		double[] FMeasures = crossValidator.crossValidate8(foldsList);
+		double meanFMeasure = crossValidator.cvAccuracy(FMeasures);
+		double varianceFMeasure = crossValidator.cvVariance(FMeasures);
+		System.out.println("F measures for each fold:");
+		System.out.println(Arrays.toString(FMeasures));
+		System.out.println();
+		System.out.println("Average F measure with cross validation:");
+		System.out.println(meanFMeasure);
+		System.out.println();
+		System.out.println("F measure variance with cross validation");
+		System.out.println(varianceFMeasure);
+		System.out.println();
 
 		IExercise7 implementation7 = (IExercise7) new Exercise7();
 		HiddenMarkovModel<DiceRoll, DiceType> model = implementation7.estimateHMM(trainingSet);
