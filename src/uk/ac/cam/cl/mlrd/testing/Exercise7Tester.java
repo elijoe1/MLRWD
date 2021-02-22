@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 //TODO: Replace with your package.
-import uk.ac.cam.cl.emm68.exercises.Exercise7;
+import uk.ac.cam.cl.ej349.exercises.Exercise7;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.DiceRoll;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.DiceType;
 import uk.ac.cam.cl.mlrd.exercises.markov_models.HiddenMarkovModel;
