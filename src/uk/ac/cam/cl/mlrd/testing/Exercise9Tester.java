@@ -30,26 +30,26 @@ public class Exercise9Tester {
 		System.out.println(sequencePairs.size());
 
 		// Use for testing the code
-		Collections.shuffle(sequencePairs, new Random(1));
+		Collections.shuffle(sequencePairs, new Random(0));
 		int testSize = sequencePairs.size() / 10;
 		List<HMMDataStore<AminoAcid, Feature>> devSet = sequencePairs.subList(0, testSize);
 		List<HMMDataStore<AminoAcid, Feature>> testSet = sequencePairs.subList(testSize, 2 * testSize);
 		List<HMMDataStore<AminoAcid, Feature>> trainingSet = sequencePairs.subList(testSize * 2, sequencePairs.size());
 		// But:
 		// TODO: Replace with cross-validation for the tick.
-//		List<List<HMMDataStore<AminoAcid, Feature>>> foldsList = crossValidator.splitCVRandom(sequencePairs, 10, 0);
-//		double[] FMeasures = crossValidator.crossValidate9(foldsList);
-//		double meanFMeasure = crossValidator.cvAccuracy(FMeasures);
-//		double varianceFMeasure = crossValidator.cvVariance(FMeasures);
-//		System.out.println("F measures for each fold:");
-//		System.out.println(Arrays.toString(FMeasures));
-//		System.out.println();
-//		System.out.println("Average F measure with cross validation:");
-//		System.out.println(meanFMeasure);
-//		System.out.println();
-//		System.out.println("F measure variance with cross validation");
-//		System.out.println(varianceFMeasure);
-//		System.out.println();
+		List<List<HMMDataStore<AminoAcid, Feature>>> foldsList = crossValidator.splitCVRandom(sequencePairs, 10, 0);
+		double[] FMeasures = crossValidator.crossValidate9(foldsList);
+		double meanFMeasure = crossValidator.cvAccuracy(FMeasures);
+		double varianceFMeasure = crossValidator.cvVariance(FMeasures);
+		System.out.println("F measures for each fold:");
+		System.out.println(Arrays.toString(FMeasures));
+		System.out.println();
+		System.out.println("Average F measure with cross validation:");
+		System.out.println(meanFMeasure);
+		System.out.println();
+		System.out.println("F measure variance with cross validation");
+		System.out.println(varianceFMeasure);
+		System.out.println();
 
 		IExercise9 implementation = (IExercise9) new Exercise9();
 
