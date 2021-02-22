@@ -65,42 +65,42 @@ public class HMMDataStore<T, U> {
 		return data;
 	}
 
-//	/**
-//	 * Loads a file with amino acid sequences.
-//	 *
-//	 */
-//	public static List<HMMDataStore<AminoAcid, Feature>> loadBioFile(Path sequenceFile) throws IOException {
-//		List<List<AminoAcid>> obsSeqs = new ArrayList<List<AminoAcid>>();
-//		List<List<Feature>> hiddenSeqs = new ArrayList<List<Feature>>();
-//
-//		try (BufferedReader reader = Files.newBufferedReader(sequenceFile)) {
-//			reader.lines().forEach(new Consumer<String>() {
-//				@Override
-//				public void accept(String line) {
-//					if (!line.isEmpty()) {
-//						if (line.startsWith("#")) {
-//							List<AminoAcid> obs = line.substring(1).chars().mapToObj(i -> AminoAcid.valueOf((char) i))
-//									.collect(Collectors.toList());
-//							obs.add(0, AminoAcid.START);
-//							obs.add(AminoAcid.END);
-//							obsSeqs.add(obs);
-//						} else {
-//							List<Feature> hidden = line.chars().mapToObj(i -> Feature.valueOf((char) i))
-//									.collect(Collectors.toList());
-//							hidden.add(0, Feature.START);
-//							hidden.add(Feature.END);
-//							hiddenSeqs.add(hidden);
-//						}
-//					}
-//				}
-//			});
-//		} catch (IOException e) {
-//			throw new IOException("Can't access the file " + sequenceFile, e);
-//		}
-//		List<HMMDataStore<AminoAcid, Feature>> sequencePairs = IntStream.range(0, obsSeqs.size())
-//				.mapToObj(i -> new HMMDataStore<AminoAcid, Feature>(obsSeqs.get(i), hiddenSeqs.get(i)))
-//				.collect(Collectors.toList());
-//
-//		return sequencePairs;
-//	}
+	/**
+	 * Loads a file with amino acid sequences.
+	 *
+	 */
+	public static List<HMMDataStore<AminoAcid, Feature>> loadBioFile(Path sequenceFile) throws IOException {
+		List<List<AminoAcid>> obsSeqs = new ArrayList<List<AminoAcid>>();
+		List<List<Feature>> hiddenSeqs = new ArrayList<List<Feature>>();
+
+		try (BufferedReader reader = Files.newBufferedReader(sequenceFile)) {
+			reader.lines().forEach(new Consumer<String>() {
+				@Override
+				public void accept(String line) {
+					if (!line.isEmpty()) {
+						if (line.startsWith("#")) {
+							List<AminoAcid> obs = line.substring(1).chars().mapToObj(i -> AminoAcid.valueOf((char) i))
+									.collect(Collectors.toList());
+							obs.add(0, AminoAcid.START);
+							obs.add(AminoAcid.END);
+							obsSeqs.add(obs);
+						} else {
+							List<Feature> hidden = line.chars().mapToObj(i -> Feature.valueOf((char) i))
+									.collect(Collectors.toList());
+							hidden.add(0, Feature.START);
+							hidden.add(Feature.END);
+							hiddenSeqs.add(hidden);
+						}
+					}
+				}
+			});
+		} catch (IOException e) {
+			throw new IOException("Can't access the file " + sequenceFile, e);
+		}
+		List<HMMDataStore<AminoAcid, Feature>> sequencePairs = IntStream.range(0, obsSeqs.size())
+				.mapToObj(i -> new HMMDataStore<AminoAcid, Feature>(obsSeqs.get(i), hiddenSeqs.get(i)))
+				.collect(Collectors.toList());
+
+		return sequencePairs;
+	}
 }
