@@ -75,7 +75,7 @@ public class Exercise11 implements IExercise11 {
                 }
             }
         }
-        // halve all c_b values as the graph we have is given as undirected
+        // halve all c_b values as graph undirected, not directed
         c_b.replaceAll((n, v) -> c_b.get(n) / 2.);
         return c_b;
     }
